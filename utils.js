@@ -332,7 +332,7 @@ const GithubReposModule = {
                       ? translations[currentLang] 
                       : {};
         
-        const siteUrl = repo.homepage || (repo.has_pages ? `https://wevertongomescosta.github.io/${repo.name}/` : null);
+        const siteUrl = repo.homepage || (repo.has_pages ? `https://guilhermecarrico.github.io/${repo.name}/` : null);
     
         let actionsHtml = '';
         if (siteUrl) actionsHtml += `<a class="link-btn" href="${siteUrl}" target="_blank" rel="noopener" data-key="repo-live-site">${trans['repo-live-site'] || 'Ver Site'}</a>`;
@@ -1167,7 +1167,7 @@ const CvPdfGenerator = {
             // Pega o idioma atual (necessário para a correção do Location)
             const lang = window.currentLang || 'pt';
 
-            doc.setFontSize(20).setFont('helvetica', 'bold').setTextColor(0).text(langContent['hero-name'] || 'Weverton Gomes da Costa', headerX, y + 15, { maxWidth: headerW });
+            doc.setFontSize(20).setFont('helvetica', 'bold').setTextColor(0).text(langContent['hero-name'] || 'Guilherme Carriço', headerX, y + 15, { maxWidth: headerW });
             
             // --- ALTERAÇÃO: Adicionando todos os subtítulos ---
             
@@ -1184,12 +1184,12 @@ const CvPdfGenerator = {
 
             // Posições 'y' ajustadas para os itens seguintes:
             doc.setFontSize(9).setFont('helvetica', 'normal').setTextColor(80);
-            doc.text(`Email: wevertonufv@gmail.com`, headerX, y + 70); 
+            doc.text(`Email: guidangelo98@gmail.com`, headerX, y + 70); 
             
-            doc.text(`LinkedIn: linkedin.com/in/wevertoncosta`, headerX, y + 82); 
+            doc.text(`LinkedIn: https://www.linkedin.com/in/guicarrico/`, headerX, y + 82); 
             doc.setTextColor(40, 40, 255); 
             try {
-                doc.textWithLink('linkedin.com/in/wevertoncosta', headerX + doc.getTextWidth('LinkedIn: '), y + 82, { url: 'https://linkedin.com/in/wevertoncosta' }); 
+                doc.textWithLink('https://www.linkedin.com/in/guicarrico/', headerX + doc.getTextWidth('LinkedIn: '), y + 82, { url: 'https://www.linkedin.com/in/guicarrico/' }); 
             } catch (e) { console.warn("jsPDF textWithLink pode não ser suportado."); }
             doc.setTextColor(80); 
 
@@ -1561,7 +1561,7 @@ const CvPdfGenerator = {
             } else { 
                 fileNameKey = 'cv-file-name-academic';
             }
-            const fileName = langContent[fileNameKey] || `CV-Weverton_Gomes_da_Costa_${cvType}_${lang}.pdf`; 
+            const fileName = langContent[fileNameKey] || `CV-Guilherme_Carrico_${cvType}_${lang}.pdf`; 
 
             doc.save(fileName);
 
@@ -1590,7 +1590,7 @@ const CvPdfGenerator = {
 // =================================================================================
 const ClipboardCopier = {
     init() {
-        const emailToCopy = 'wevertonufv@gmail.com';
+        const emailToCopy = 'guidangelo98@gmail.com';
 
         const copyTriggers = [
             document.getElementById('copy-email-link'),
@@ -2006,7 +2006,7 @@ const App = {
 
     _handleEmailCopy(event) {
         event.preventDefault();
-        const emailToCopy = 'wevertonufv@gmail.com';
+        const emailToCopy = 'guidangelo98@gmail.com';
         navigator.clipboard.writeText(emailToCopy)
             .then(() => this.showToast(`Email: ${emailToCopy} copiado!`))
             .catch(err => {
