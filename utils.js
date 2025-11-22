@@ -1184,7 +1184,7 @@ const CvPdfGenerator = {
 
             // Posições 'y' ajustadas para os itens seguintes:
             doc.setFontSize(9).setFont('helvetica', 'normal').setTextColor(80);
-            doc.text(`Email: guidangelo98@gmail.com`, headerX, y + 70); 
+            doc.text(`Email: gui.carrico@quantummasterinc.com`, headerX, y + 70); 
             
             doc.text(`LinkedIn: https://www.linkedin.com/in/guicarrico/`, headerX, y + 82); 
             doc.setTextColor(40, 40, 255); 
@@ -1590,7 +1590,7 @@ const CvPdfGenerator = {
 // =================================================================================
 const ClipboardCopier = {
     init() {
-        const emailToCopy = 'guidangelo98@gmail.com';
+        const emailToCopy = 'gui.carrico@quantummasterinc.com';
 
         const copyTriggers = [
             document.getElementById('copy-email-link'),
@@ -2006,7 +2006,7 @@ const App = {
 
     _handleEmailCopy(event) {
         event.preventDefault();
-        const emailToCopy = 'guidangelo98@gmail.com';
+        const emailToCopy = 'gui.carrico@quantummasterinc.com';
         navigator.clipboard.writeText(emailToCopy)
             .then(() => this.showToast(`Email: ${emailToCopy} copiado!`))
             .catch(err => {
