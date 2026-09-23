@@ -88,8 +88,6 @@ function escapeHtml(value) {
 }
 
 function initReveal(motionOK) {
-    const pending = () => document.querySelectorAll(".reveal:not(.is-visible)");
-
     if (!motionOK || !("IntersectionObserver" in window)) {
         const showAll = (root) => {
             (root || document).querySelectorAll(".reveal").forEach((el) => el.classList.add("is-visible"));
@@ -104,13 +102,23 @@ function initReveal(motionOK) {
             entry.target.classList.add("is-visible");
             io.unobserve(entry.target);
         });
-    }, { threshold: 0.12, rootMargin: "0px 0px -32px 0px" });
+    }, { threshold: 0.22, rootMargin: "0px 0px -48px 0px" });
 
-    const watch = (root) => {
-        (root || document).querySelectorAll(".reveal:not(.is-visible)").forEach((el) => io.observe(el));
+    const nearViewport = (el) => {
+        const rect = el.getBoundingClientRect();
+        const vh = window.innerHeight || document.documentElement.clientHeight;
+        const visible = Math.min(rect.bottom, vh) - Math.max(rect.top, 0);
+        return visible >= Math.min(96, rect.height * 0.6);
     };
 
-    pending().forEach((el) => io.observe(el));
+    const watch = (root) => {
+        (root || document).querySelectorAll(".reveal:not(.is-visible)").forEach((el) => {
+            if (nearViewport(el)) el.classList.add("is-visible");
+            else io.observe(el);
+        });
+    };
+
+    watch(document);
     return watch;
 }
 

@@ -693,19 +693,19 @@ footer::before {
     background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.14), transparent);
 }
 
-/* Reveal — progressive, only when JS is present */
+/* Reveal uses the translate property so hover transforms can still compose. */
 .js .reveal {
     opacity: 0;
-    transform: translateY(18px);
+    translate: 0 18px;
     transition:
         opacity 0.8s var(--ease),
-        transform 0.8s var(--ease);
+        translate 0.8s var(--ease);
     transition-delay: calc(var(--i, 0) * 80ms);
 }
 
 .js .reveal.is-visible {
     opacity: 1;
-    transform: none;
+    translate: 0 0;
 }
 
 /* Hover / fine pointer */
@@ -828,7 +828,7 @@ footer::before {
 
     .js .reveal {
         opacity: 1 !important;
-        transform: none !important;
+        translate: none !important;
     }
 
     .cursor-glow { display: none; }
