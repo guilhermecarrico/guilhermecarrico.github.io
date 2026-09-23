@@ -3,14 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#000000">
     <title>Guilherme Carriço | Prompt Engineer & AI Architect</title>
     <meta name="description" content="Prompt Engineer e pós-graduando em Data Science & IA (MBA USP). Projeta e opera ecossistemas de agentes autônomos.">
-    
+    <script>document.documentElement.classList.add("js");</script>
+
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400..800&family=JetBrains+Mono:wght@400..700&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="style.css">
     <!-- Ícones Lucide -->
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -18,19 +20,24 @@
 <body>
 
     <!-- Background animado super leve -->
-    <div class="bg-mesh"></div>
+    <div class="bg-mesh" aria-hidden="true"></div>
+    <div class="bg-grid" aria-hidden="true"></div>
+    <div class="bg-noise" aria-hidden="true"></div>
+    <div class="cursor-glow" aria-hidden="true"></div>
 
     <header class="hero">
         <div class="container">
             <div class="hero-content">
                 <div class="avatar-container">
-                    <img src="https://github.com/guilhermecarrico.png" alt="Guilherme Carriço" class="avatar">
+                    <div class="avatar-frame">
+                        <img src="https://github.com/guilhermecarrico.png" alt="Guilherme Carriço" class="avatar" width="148" height="148" decoding="async" fetchpriority="high">
+                    </div>
                     <div class="status-badge"><span class="pulse"></span> Open for challenges</div>
                 </div>
-                
+
                 <h1 class="name">Guilherme Carriço</h1>
                 <h2 class="title">Prompt Engineer & AI Architect</h2>
-                
+
                 <div class="badges">
                     <span class="badge"><i data-lucide="bot"></i> Swarm Intelligence</span>
                     <span class="badge"><i data-lucide="database"></i> MBA USP/Esalq</span>
@@ -38,13 +45,13 @@
                 </div>
 
                 <p class="bio">
-                    Projetando e operando <strong>ecossistemas de agentes autônomos</strong>. 
-                    Vou além do prompt tradicional: construo arquiteturas onde múltiplas IAs colaboram com 
+                    Projetando e operando <strong>ecossistemas de agentes autônomos</strong>.
+                    Vou além do prompt tradicional: construo arquiteturas onde múltiplas IAs colaboram com
                     papéis, memória e regras definidas para resolver problemas de negócios escaláveis.
                 </p>
 
                 <div class="hero-links">
-                    <a href="https://linkedin.com/in/guilhermecarrico" target="_blank" class="btn btn-primary">
+                    <a href="https://linkedin.com/in/guilhermecarrico" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
                         <i data-lucide="linkedin"></i> LinkedIn
                     </a>
                     <a href="mailto:seu.email@aqui.com" class="btn btn-secondary">
@@ -56,17 +63,19 @@
     </header>
 
     <main class="container">
-        
+
         <section class="section">
-            <div class="section-header">
-                <i data-lucide="cpu" class="section-icon"></i>
-                <h2>Ecossistemas de IA Privados</h2>
+            <div class="section-intro reveal">
+                <div class="section-header">
+                    <i data-lucide="cpu" class="section-icon"></i>
+                    <h2>Ecossistemas de IA Privados</h2>
+                </div>
+                <p class="section-subtitle">Arquiteturas proprietárias de múltiplos agentes (Swarm) em produção.</p>
             </div>
-            <p class="section-subtitle">Arquiteturas proprietárias de múltiplos agentes (Swarm) em produção.</p>
-            
+
             <div class="grid">
                 <!-- Card 1 -->
-                <div class="card glass">
+                <div class="card glass reveal" style="--i: 1">
                     <div class="card-header">
                         <h3><i data-lucide="shield"></i> Local AI Research Ecosystem</h3>
                         <span class="status-tag live">Em Produção</span>
@@ -80,7 +89,7 @@
                 </div>
 
                 <!-- Card 2 -->
-                <div class="card glass">
+                <div class="card glass reveal" style="--i: 2">
                     <div class="card-header">
                         <h3><i data-lucide="network"></i> Enterprise Multi-Agent Architecture</h3>
                         <span class="status-tag live">Em Produção</span>
@@ -96,15 +105,18 @@
         </section>
 
         <section class="section">
-            <div class="section-header">
-                <i data-lucide="github" class="section-icon"></i>
-                <h2>Repositórios Públicos</h2>
+            <div class="section-intro reveal">
+                <div class="section-header">
+                    <i data-lucide="github" class="section-icon"></i>
+                    <h2>Repositórios Públicos</h2>
+                </div>
+                <p class="section-subtitle">Códigos abertos, pipelines de dados e estudos técnicos.</p>
             </div>
-            <p class="section-subtitle">Códigos abertos, pipelines de dados e estudos técnicos.</p>
-            
+
             <div id="github-repos" class="grid">
                 <!-- Injetado via JS -->
-                <div class="loading-pulse" style="grid-column: 1 / -1; text-align: center; color: var(--text-muted); padding: 2rem;">
+                <div class="repos-loading">
+                    <span class="repos-loading-mark" aria-hidden="true"></span>
                     Buscando repositórios no Github...
                 </div>
             </div>
@@ -112,7 +124,7 @@
 
     </main>
 
-    <footer>
+    <footer class="reveal">
         <div class="container footer-content">
             <p>&copy; 2026 Guilherme Carriço. Desenvolvido com IA.</p>
         </div>
