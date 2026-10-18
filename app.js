@@ -3,6 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const finePointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
 
     const watchReveals = initReveal(motionOK);
+    initEmailLinks();
     if (motionOK && finePointer) {
         initCursorGlow();
         initCardSpotlights(document);
@@ -189,6 +190,28 @@ function initMagneticButtons() {
         btn.addEventListener("pointerleave", () => {
             btn.style.setProperty("--tx", "0px");
             btn.style.setProperty("--ty", "0px");
+        });
+    });
+}
+
+function initEmailLinks() {
+    document.querySelectorAll("a[data-email]").forEach((link) => {
+        link.addEventListener("click", () => {
+            const email = link.getAttribute("data-email");
+            if (!email || !navigator.clipboard?.writeText) return;
+            navigator.clipboard.writeText(email).catch(() => {});
+
+            const label = link.querySelector(".contact-text");
+            if (!label) return;
+            const original = label.dataset.original || label.textContent;
+            label.dataset.original = original;
+            label.textContent = "contato@oledsmith.com.br";
+            link.classList.add("is-copied");
+            clearTimeout(link._copyTimer);
+            link._copyTimer = setTimeout(() => {
+                label.textContent = original;
+                link.classList.remove("is-copied");
+            }, 3200);
         });
     });
 }
