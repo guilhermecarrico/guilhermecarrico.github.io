@@ -6,6 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (motionOK && finePointer) {
         initCursorGlow();
         initCardSpotlights(document);
+        initMagneticButtons();
     }
 
     // Configurações do Github API
@@ -33,25 +34,31 @@ document.addEventListener("DOMContentLoaded", () => {
                 card.target = "_blank";
                 card.rel = "noopener noreferrer";
                 card.className = "card glass repo-card reveal";
-                card.style.setProperty("--i", String(index));
+                card.style.setProperty("--i", String(index + 1));
 
                 // Trata descrição vazia
                 const description = repo.description || "Nenhuma descrição fornecida pelo autor.";
 
                 // Pega a linguagem principal
                 const language = repo.language || "Markdown";
+                const updatedLabel = formatUpdatedAt(repo.pushed_at || repo.updated_at);
 
                 card.innerHTML = `
+                    <div class="card-beam" aria-hidden="true"></div>
                     <div class="card-header">
                         <h3><i data-lucide="folder-git-2"></i> ${escapeHtml(repo.name)}</h3>
+                        <span class="repo-arrow" aria-hidden="true"><i data-lucide="arrow-up-right"></i></span>
                     </div>
                     <p>${escapeHtml(description)}</p>
-                    <div class="repo-stats">
-                        <span title="Stars"><i data-lucide="star"></i> ${repo.stargazers_count}</span>
-                        <span title="Forks"><i data-lucide="git-fork"></i> ${repo.forks_count}</span>
-                    </div>
-                    <div class="tags">
-                        <span>${escapeHtml(language)}</span>
+                    <div class="repo-footer">
+                        <div class="tags">
+                            <span><span class="lang-dot" aria-hidden="true"></span>${escapeHtml(language)}</span>
+                        </div>
+                        <div class="repo-stats">
+                            <span title="Stars"><i data-lucide="star"></i> ${repo.stargazers_count}</span>
+                            <span title="Forks"><i data-lucide="git-fork"></i> ${repo.forks_count}</span>
+                            ${updatedLabel ? `<span title="Último push">${escapeHtml(updatedLabel)}</span>` : ""}
+                        </div>
                     </div>
                 `;
 
@@ -87,6 +94,13 @@ function escapeHtml(value) {
         .replaceAll("'", "&#39;");
 }
 
+function formatUpdatedAt(isoDate) {
+    if (!isoDate) return "";
+    const date = new Date(isoDate);
+    if (Number.isNaN(date.getTime())) return "";
+    return date.toLocaleDateString("pt-BR", { month: "short", year: "numeric" }).replace(".", "");
+}
+
 function initReveal(motionOK) {
     if (!motionOK || !("IntersectionObserver" in window)) {
         const showAll = (root) => {
@@ -102,13 +116,13 @@ function initReveal(motionOK) {
             entry.target.classList.add("is-visible");
             io.unobserve(entry.target);
         });
-    }, { threshold: 0.22, rootMargin: "0px 0px -48px 0px" });
+    }, { threshold: 0.18, rootMargin: "0px 0px -36px 0px" });
 
     const nearViewport = (el) => {
         const rect = el.getBoundingClientRect();
         const vh = window.innerHeight || document.documentElement.clientHeight;
         const visible = Math.min(rect.bottom, vh) - Math.max(rect.top, 0);
-        return visible >= Math.min(96, rect.height * 0.6);
+        return visible >= Math.min(88, rect.height * 0.55);
     };
 
     const watch = (root) => {
@@ -146,8 +160,35 @@ function initCardSpotlights(root) {
         card.dataset.spotlight = "on";
         card.addEventListener("pointermove", (event) => {
             const rect = card.getBoundingClientRect();
-            card.style.setProperty("--mx", `${event.clientX - rect.left}px`);
-            card.style.setProperty("--my", `${event.clientY - rect.top}px`);
+            const px = event.clientX - rect.left;
+            const py = event.clientY - rect.top;
+            card.style.setProperty("--mx", `${px}px`);
+            card.style.setProperty("--my", `${py}px`);
+
+            const nx = (px / rect.width) - 0.5;
+            const ny = (py / rect.height) - 0.5;
+            card.style.setProperty("--rx", `${(-ny * 3.2).toFixed(2)}deg`);
+            card.style.setProperty("--ry", `${(nx * 3.8).toFixed(2)}deg`);
+        });
+        card.addEventListener("pointerleave", () => {
+            card.style.setProperty("--rx", "0deg");
+            card.style.setProperty("--ry", "0deg");
+        });
+    });
+}
+
+function initMagneticButtons() {
+    document.querySelectorAll(".magnetic").forEach((btn) => {
+        btn.addEventListener("pointermove", (event) => {
+            const rect = btn.getBoundingClientRect();
+            const dx = (event.clientX - (rect.left + rect.width / 2)) * 0.16;
+            const dy = (event.clientY - (rect.top + rect.height / 2)) * 0.22;
+            btn.style.setProperty("--tx", `${dx.toFixed(1)}px`);
+            btn.style.setProperty("--ty", `${dy.toFixed(1)}px`);
+        });
+        btn.addEventListener("pointerleave", () => {
+            btn.style.setProperty("--tx", "0px");
+            btn.style.setProperty("--ty", "0px");
         });
     });
 }

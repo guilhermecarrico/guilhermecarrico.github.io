@@ -18,7 +18,7 @@
     <!-- Ícones Lucide -->
     <script src="https://unpkg.com/lucide@0.460.0/dist/umd/lucide.min.js"></script>
 </head>
-<body>
+<body id="top">
 
     <!-- Background animado super leve -->
     <div class="bg-mesh" aria-hidden="true"></div>
@@ -26,10 +26,29 @@
     <div class="bg-noise" aria-hidden="true"></div>
     <div class="cursor-glow" aria-hidden="true"></div>
 
+    <!-- Barra de status / navegação flutuante -->
+    <nav class="top-bar" aria-label="Navegação rápida">
+        <div class="top-bar-inner glass">
+            <a href="#top" class="top-brand">
+                <span class="top-brand-dot" aria-hidden="true"></span>
+                <span class="top-brand-handle">gc.swarm</span>
+            </a>
+            <div class="top-nav-links">
+                <a href="#ecosystems" class="top-nav-link">Ecossistemas</a>
+                <a href="#repositories" class="top-nav-link">Repositórios</a>
+            </div>
+            <a href="https://www.linkedin.com/in/guicarrico/" target="_blank" rel="noopener noreferrer" class="top-cta" aria-label="LinkedIn de Guilherme Carriço">
+                <span>Conectar</span>
+                <i data-lucide="arrow-up-right"></i>
+            </a>
+        </div>
+    </nav>
+
     <header class="hero">
         <div class="container">
             <div class="hero-content">
                 <div class="avatar-container">
+                    <div class="avatar-orbit" aria-hidden="true"></div>
                     <div class="avatar-frame">
                         <img src="https://github.com/guilhermecarrico.png" alt="Guilherme Carriço" class="avatar" width="148" height="148" decoding="async" fetchpriority="high">
                     </div>
@@ -52,10 +71,10 @@
                 </p>
 
                 <div class="hero-links">
-                    <a href="https://www.linkedin.com/in/guicarrico/" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
-                        <span class="btn-label"><i data-lucide="linkedin"></i> LinkedIn</span>
+                    <a href="https://www.linkedin.com/in/guicarrico/" target="_blank" rel="noopener noreferrer" class="btn btn-primary magnetic">
+                        <span class="btn-label"><i data-lucide="linkedin"></i> LinkedIn <i data-lucide="arrow-up-right" class="btn-trail"></i></span>
                     </a>
-                    <a href="mailto:seu.email@aqui.com" class="btn btn-secondary">
+                    <a href="mailto:seu.email@aqui.com" class="btn btn-secondary magnetic">
                         <span class="btn-label"><i data-lucide="mail"></i> Contato</span>
                     </a>
                 </div>
@@ -65,10 +84,16 @@
 
     <main class="container">
 
-        <section class="section">
+        <section class="section" id="ecosystems">
             <div class="section-intro reveal">
+                <div class="section-eyebrow">
+                    <span class="eyebrow-dot" aria-hidden="true"></span>
+                    <span>ARQUITETURA DE AGENTES // SWARM TOPOLOGY</span>
+                </div>
                 <div class="section-header">
-                    <i data-lucide="cpu" class="section-icon"></i>
+                    <span class="section-icon-box" aria-hidden="true">
+                        <i data-lucide="cpu" class="section-icon"></i>
+                    </span>
                     <h2>Ecossistemas de IA Privados</h2>
                 </div>
                 <p class="section-subtitle">Arquiteturas proprietárias de múltiplos agentes (Swarm) em produção.</p>
@@ -76,7 +101,58 @@
 
             <div class="grid">
                 <!-- Card 1 -->
-                <div class="card glass reveal" style="--i: 1">
+                <article class="card glass card-ecosystem reveal" style="--i: 1">
+                    <div class="card-beam" aria-hidden="true"></div>
+
+                    <div class="swarm- schematic-local" aria-hidden="true">
+                        <div class="schematic-meta">
+                            <span class="schematic-code">SYS.01 // LOCAL-RAG-PIPE</span>
+                            <span class="schematic-signal"><span class="signal-bar"></span><span class="signal-bar"></span><span class="signal-bar"></span> AIR-GAPPED</span>
+                        </div>
+                        <svg class="swarm-svg" viewBox="0 0 420 96" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Grid lines -->
+                            <line x1="16" y1="48" x2="404" y2="48" class="trace-bg" />
+                            <path d="M74 48 C115 48, 120 24, 166 24" class="trace-line" />
+                            <path d="M74 48 C115 48, 120 72, 166 72" class="trace-line" />
+                            <path d="M234 24 C274 24, 282 48, 326 48" class="trace-line" />
+                            <path d="M234 72 C274 72, 282 48, 326 48" class="trace-line" />
+
+                            <!-- Animated data pulses -->
+                            <path d="M74 48 C115 48, 120 24, 166 24" class="trace-pulse pulse-1" />
+                            <path d="M74 48 C115 48, 120 72, 166 72" class="trace-pulse pulse-2" />
+                            <path d="M234 24 C274 24, 282 48, 326 48" class="trace-pulse pulse-3" />
+                            <path d="M234 72 C274 72, 282 48, 326 48" class="trace-pulse pulse-2" />
+
+                            <!-- Node 1: Raw Ingestion -->
+                            <g class="swarm-node">
+                                <rect x="18" y="32" width="56" height="32" rx="8" class="node-box" />
+                                <circle cx="31" cy="48" r="3.5" class="node-led" />
+                                <text x="41" y="51" class="node-label">RAW</text>
+                            </g>
+
+                            <!-- Node 2A: LLM ETL -->
+                            <g class="swarm-node">
+                                <rect x="166" y="10" width="68" height="28" rx="7" class="node-box" />
+                                <circle cx="179" cy="24" r="3" class="node-led" />
+                                <text x="188" y="27" class="node-label">ETL.LLM</text>
+                            </g>
+
+                            <!-- Node 2B: Chunk / Embed -->
+                            <g class="swarm-node">
+                                <rect x="166" y="58" width="68" height="28" rx="7" class="node-box" />
+                                <circle cx="179" cy="72" r="3" class="node-led" />
+                                <text x="188" y="75" class="node-label">VECTOR</text>
+                            </g>
+
+                            <!-- Node 3: Deep RAG Core -->
+                            <g class="swarm-node">
+                                <rect x="326" y="30" width="76" height="36" rx="9" class="node-box node-box-core" />
+                                <circle cx="341" cy="48" r="4" class="node-led node-led-core" />
+                                <text x="351" y="51" class="node-label node-label-core">RAG.CORE</text>
+                            </g>
+                        </svg>
+                    </div>
+
                     <div class="card-header">
                         <h3><i data-lucide="shield"></i> Local AI Research Ecosystem</h3>
                         <span class="status-tag live">Em Produção</span>
@@ -87,31 +163,102 @@
                         <span>Multi-Agent</span>
                         <span>Python</span>
                     </div>
-                </div>
+                </article>
 
                 <!-- Card 2 -->
-                <div class="card glass reveal" style="--i: 2">
+                <article class="card glass card-ecosystem reveal" style="--i: 2">
+                    <div class="card-beam" aria-hidden="true"></div>
+
+                    <div class="swarm- schematic-enterprise" aria-hidden="true">
+                        <div class="schematic-meta">
+                            <span class="schematic-code">SYS.02 // CLOUD-SWARM-MESH</span>
+                            <span class="schematic-signal"><span class="signal-bar"></span><span class="signal-bar"></span><span class="signal-bar"></span> 4x MODELS</span>
+                        </div>
+                        <svg class="swarm-svg" viewBox="0 0 420 96" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Orchestrator routing traces -->
+                            <path d="M92 48 C136 48, 146 16, 194 16" class="trace-line" />
+                            <path d="M92 48 C138 48, 150 38, 194 38" class="trace-line" />
+                            <path d="M92 48 C138 48, 150 60, 194 60" class="trace-line" />
+                            <path d="M92 48 C136 48, 146 82, 194 82" class="trace-line" />
+
+                            <path d="M268 16 C306 16, 312 48, 342 48" class="trace-line" />
+                            <path d="M268 38 C302 38, 312 48, 342 48" class="trace-line" />
+                            <path d="M268 60 C302 60, 312 48, 342 48" class="trace-line" />
+                            <path d="M268 82 C306 82, 312 48, 342 48" class="trace-line" />
+
+                            <!-- Animated pulses -->
+                            <path d="M92 48 C136 48, 146 16, 194 16" class="trace-pulse pulse-1" />
+                            <path d="M92 48 C138 48, 150 38, 194 38" class="trace-pulse pulse-2" />
+                            <path d="M92 48 C138 48, 150 60, 194 60" class="trace-pulse pulse-3" />
+                            <path d="M92 48 C136 48, 146 82, 194 82" class="trace-pulse pulse-1" />
+                            <path d="M268 38 C302 38, 312 48, 342 48" class="trace-pulse pulse-3" />
+                            <path d="M268 60 C302 60, 312 48, 342 48" class="trace-pulse pulse-2" />
+
+                            <!-- Orchestrator router -->
+                            <g class="swarm-node">
+                                <rect x="16" y="30" width="76" height="36" rx="9" class="node-box node-box-core" />
+                                <circle cx="30" cy="48" r="4" class="node-led node-led-core" />
+                                <text x="40" y="51" class="node-label node-label-core">ROUTER</text>
+                            </g>
+
+                            <!-- Model Agents -->
+                            <g class="swarm-node">
+                                <rect x="194" y="6" width="74" height="19" rx="5" class="node-box" />
+                                <circle cx="204" cy="15.5" r="2.5" class="node-led" />
+                                <text x="212" y="18.5" class="node-label node-label-sm">CLAUDE</text>
+                            </g>
+                            <g class="swarm-node">
+                                <rect x="194" y="28" width="74" height="19" rx="5" class="node-box" />
+                                <circle cx="204" cy="37.5" r="2.5" class="node-led" />
+                                <text x="212" y="40.5" class="node-label node-label-sm">GEMINI</text>
+                            </g>
+                            <g class="swarm-node">
+                                <rect x="194" y="50" width="74" height="19" rx="5" class="node-box" />
+                                <circle cx="204" cy="59.5" r="2.5" class="node-led" />
+                                <text x="212" y="62.5" class="node-label node-label-sm">ASTRA</text>
+                            </g>
+                            <g class="swarm-node">
+                                <rect x="194" y="72" width="74" height="19" rx="5" class="node-box" />
+                                <circle cx="204" cy="81.5" r="2.5" class="node-led" />
+                                <text x="212" y="84.5" class="node-label node-label-sm">GROK</text>
+                            </g>
+
+                            <!-- Output Intelligence -->
+                            <g class="swarm-node">
+                                <rect x="342" y="32" width="62" height="32" rx="8" class="node-box" />
+                                <circle cx="354" cy="48" r="3.5" class="node-led" />
+                                <text x="363" y="51" class="node-label">INTEL</text>
+                            </g>
+                        </svg>
+                    </div>
+
                     <div class="card-header">
                         <h3><i data-lucide="network"></i> Enterprise Multi-Agent Architecture</h3>
                         <span class="status-tag live">Em Produção</span>
                     </div>
                     <p>Sistema corporativo de agentes em cadeia desenhado para análise de sentimento em tempo real, automação de processos complexos e geração de inteligência de mercado operando na nuvem.</p>
                     <div class="tags">
-                        <span>Claude</span>
-                        <span>Gemini</span>
-                        <span>ChatGPT Astra</span>
-                        <span>Grok</span>
+                        <span class="tag-model">Claude</span>
+                        <span class="tag-model">Gemini</span>
+                        <span class="tag-model">ChatGPT Astra</span>
+                        <span class="tag-model">Grok</span>
                         <span>LangChain</span>
                         <span>Data Science</span>
                     </div>
-                </div>
+                </article>
             </div>
         </section>
 
-        <section class="section">
+        <section class="section" id="repositories">
             <div class="section-intro reveal">
+                <div class="section-eyebrow">
+                    <span class="eyebrow-dot" aria-hidden="true"></span>
+                    <span>OPEN SOURCE // GITHUB TELEMETRY</span>
+                </div>
                 <div class="section-header">
-                    <i data-lucide="github" class="section-icon"></i>
+                    <span class="section-icon-box" aria-hidden="true">
+                        <i data-lucide="github" class="section-icon"></i>
+                    </span>
                     <h2>Repositórios Públicos</h2>
                 </div>
                 <p class="section-subtitle">Códigos abertos, pipelines de dados e estudos técnicos.</p>
@@ -130,7 +277,19 @@
 
     <footer class="reveal">
         <div class="container footer-content">
+            <div class="footer-status" aria-hidden="true">
+                <span class="pulse"></span>
+                <span>SWARM.RUNTIME // ONLINE</span>
+            </div>
             <p>&copy; 2026 Guilherme Carriço. Desenvolvido com IA.</p>
+            <div class="footer-links">
+                <a href="https://www.linkedin.com/in/guicarrico/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+                    <i data-lucide="linkedin"></i>
+                </a>
+                <a href="https://github.com/guilhermecarrico" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+                    <i data-lucide="github"></i>
+                </a>
+            </div>
         </div>
     </footer>
 
