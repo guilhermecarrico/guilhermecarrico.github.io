@@ -525,12 +525,6 @@ footer {
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
 }
 
-.btn-secondary.is-copied {
-    border-color: rgba(52, 211, 153, 0.48);
-    color: var(--accent-bright);
-    background: rgba(16, 185, 129, 0.1);
-}
-
 /* Sections */
 .section {
     padding: clamp(3.2rem, 7vw, 5.25rem) 0;
@@ -711,13 +705,13 @@ footer {
     z-index: 0;
 }
 
-.card > * {
+.card > :not(.card-beam) {
     position: relative;
     z-index: 1;
 }
 
 /* Swarm Topology Schematic Header */
-.swarm- {
+.schematic {
     margin: -0.2rem -0.2rem 1.15rem;
     padding: 0.7rem 0.85rem 0.55rem;
     border-radius: 12px;
@@ -742,6 +736,10 @@ footer {
 
 .schematic-code {
     color: #a1a1aa;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .schematic-signal {
@@ -750,6 +748,8 @@ footer {
     gap: 3px;
     color: var(--accent-bright);
     font-weight: 600;
+    flex-shrink: 0;
+    white-space: nowrap;
 }
 
 .signal-bar {
@@ -769,6 +769,10 @@ footer {
     height: auto;
     display: block;
     overflow: visible;
+}
+
+.swarm-svg--compact {
+    display: none;
 }
 
 .trace-bg {
@@ -791,6 +795,12 @@ footer {
     stroke-dashoffset: 178;
     animation: trace-flow 3.6s linear infinite;
     filter: drop-shadow(0 0 4px rgba(52, 211, 153, 0.75));
+}
+
+.trace-pulse--short {
+    stroke-dasharray: 14 96;
+    stroke-dashoffset: 110;
+    animation-duration: 2.6s;
 }
 
 .pulse-2 { animation-delay: -1.2s; }
@@ -912,7 +922,9 @@ footer {
     margin-top: auto;
 }
 
-.tags span {
+.tags > span {
+    display: inline-flex;
+    align-items: center;
     font-size: 0.72rem;
     font-family: var(--font-mono);
     line-height: 1.35;
@@ -925,7 +937,7 @@ footer {
     transition: color 0.25s ease, border-color 0.25s ease, background 0.25s ease, transform 0.25s var(--ease);
 }
 
-.tags span.tag-model {
+.tags > span.tag-model {
     color: #d1fae5;
     background: rgba(16, 185, 129, 0.075);
     border-color: rgba(52, 211, 153, 0.2);
@@ -1199,14 +1211,14 @@ footer::before {
         opacity: 1;
     }
 
-    .card:hover .tags span,
-    .card:focus-visible .tags span {
+    .card:hover .tags > span,
+    .card:focus-visible .tags > span {
         border-color: rgba(52, 211, 153, 0.24);
         color: #f4f4f5;
     }
 
-    .card:hover .tags span.tag-model,
-    .card:focus-visible .tags span.tag-model {
+    .card:hover .tags > span.tag-model,
+    .card:focus-visible .tags > span.tag-model {
         background: rgba(16, 185, 129, 0.14);
         border-color: rgba(52, 211, 153, 0.42);
         color: #ecfdf5;
@@ -1233,11 +1245,64 @@ footer::before {
 }
 
 .card:active {
-    transform: translateY(-1px) scale(0.992);
+    scale: 0.992;
 }
 
 .btn:active {
     transform: translateY(0) scale(0.98);
+}
+
+.top-nav-link.is-active {
+    color: var(--text-main);
+    background: rgba(52, 211, 153, 0.1);
+    box-shadow: inset 0 0 0 1px rgba(52, 211, 153, 0.22);
+}
+
+.toast {
+    position: fixed;
+    left: 50%;
+    bottom: max(1.25rem, env(safe-area-inset-bottom));
+    z-index: 50;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    max-width: calc(100vw - 2rem);
+    padding: 0.62rem 0.95rem 0.62rem 0.75rem;
+    border-radius: 999px;
+    background: rgba(8, 10, 12, 0.88);
+    border: 1px solid rgba(52, 211, 153, 0.32);
+    color: var(--text-main);
+    font-size: 0.84rem;
+    font-weight: 500;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    opacity: 0;
+    translate: -50% 12px;
+    pointer-events: none;
+    transition: opacity 0.35s var(--ease), translate 0.45s var(--ease);
+}
+
+.toast.is-visible {
+    opacity: 1;
+    translate: -50% 0;
+}
+
+.toast svg,
+.toast i {
+    width: 16px;
+    height: 16px;
+    color: var(--accent-bright);
+    flex-shrink: 0;
+}
+
+.toast-email {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--accent-bright);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 /* Responsiveness */
@@ -1285,6 +1350,34 @@ footer::before {
         flex-direction: column;
         justify-content: center;
         text-align: center;
+    }
+}
+
+@media (max-width: 560px) {
+    .swarm-svg--wide {
+        display: none;
+    }
+
+    .swarm-svg--compact {
+        display: block;
+    }
+
+    .schematic {
+        padding: 0.65rem 0.7rem 0.6rem;
+    }
+
+    .schematic-meta {
+        font-size: 0.6rem;
+        letter-spacing: 0.03em;
+        margin-bottom: 0.55rem;
+    }
+
+    .node-label-md {
+        font-size: 11px;
+    }
+
+    .node-label-lg {
+        font-size: 12px;
     }
 }
 

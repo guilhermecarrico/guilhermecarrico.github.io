@@ -7,6 +7,17 @@
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23000000'/%3E%3Ccircle cx='16' cy='16' r='5.5' fill='%2334d399'/%3E%3C/svg%3E">
     <title>Guilherme Carriço | Prompt Engineer & AI Architect</title>
     <meta name="description" content="Prompt Engineer e pós-graduando em Data Science & IA (MBA USP). Projeta e opera ecossistemas de agentes autônomos.">
+    <link rel="canonical" href="https://guilhermecarrico.github.io/">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="pt_BR">
+    <meta property="og:url" content="https://guilhermecarrico.github.io/">
+    <meta property="og:title" content="Guilherme Carriço | Prompt Engineer & AI Architect">
+    <meta property="og:description" content="Prompt Engineer e pós-graduando em Data Science & IA (MBA USP). Projeta e opera ecossistemas de agentes autônomos.">
+    <meta property="og:image" content="https://github.com/guilhermecarrico.png">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Guilherme Carriço | Prompt Engineer & AI Architect">
+    <meta name="twitter:description" content="Prompt Engineer e pós-graduando em Data Science & IA (MBA USP). Projeta e opera ecossistemas de agentes autônomos.">
+    <meta name="twitter:image" content="https://github.com/guilhermecarrico.png">
     <script>document.documentElement.classList.add("js");</script>
 
     <!-- Google Fonts -->
@@ -75,7 +86,7 @@
                         <span class="btn-label"><i data-lucide="linkedin"></i> LinkedIn <i data-lucide="arrow-up-right" class="btn-trail"></i></span>
                     </a>
                     <a href="mailto:contato@oledsmith.com.br" data-email="contato@oledsmith.com.br" title="contato@oledsmith.com.br" class="btn btn-secondary magnetic">
-                        <span class="btn-label"><i data-lucide="mail"></i> <span class="contact-text">Contato</span></span>
+                        <span class="btn-label"><i data-lucide="mail"></i> Contato</span>
                     </a>
                 </div>
             </div>
@@ -104,12 +115,39 @@
                 <article class="card glass card-ecosystem reveal" style="--i: 1">
                     <div class="card-beam" aria-hidden="true"></div>
 
-                    <div class="swarm- schematic-local" aria-hidden="true">
+                    <div class="schematic schematic-local" aria-hidden="true">
                         <div class="schematic-meta">
                             <span class="schematic-code">SYS.01 // LOCAL-RAG-PIPE</span>
                             <span class="schematic-signal"><span class="signal-bar"></span><span class="signal-bar"></span><span class="signal-bar"></span> AIR-GAPPED</span>
                         </div>
-                        <svg class="swarm-svg" viewBox="0 0 420 96" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <svg class="swarm-svg swarm-svg--compact" viewBox="0 0 300 150" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M150 30 C150 48, 85 44, 85 62" class="trace-line" />
+                            <path d="M150 30 C150 48, 215 44, 215 62" class="trace-line" />
+                            <path d="M85 88 C85 106, 150 102, 150 120" class="trace-line" />
+                            <path d="M215 88 C215 106, 150 102, 150 120" class="trace-line" />
+
+                            <path d="M150 30 C150 48, 85 44, 85 62" class="trace-pulse trace-pulse--short pulse-1" />
+                            <path d="M150 30 C150 48, 215 44, 215 62" class="trace-pulse trace-pulse--short pulse-2" />
+                            <path d="M85 88 C85 106, 150 102, 150 120" class="trace-pulse trace-pulse--short pulse-3" />
+                            <path d="M215 88 C215 106, 150 102, 150 120" class="trace-pulse trace-pulse--short pulse-1" />
+
+                            <rect x="110" y="2" width="80" height="28" rx="8" class="node-box" />
+                            <circle cx="125" cy="16" r="3.5" class="node-led" />
+                            <text x="136" y="20" class="node-label node-label-lg">RAW</text>
+
+                            <rect x="30" y="62" width="110" height="26" rx="7" class="node-box" />
+                            <circle cx="45" cy="75" r="3" class="node-led" />
+                            <text x="55" y="79" class="node-label node-label-lg">ETL.LLM</text>
+
+                            <rect x="160" y="62" width="110" height="26" rx="7" class="node-box" />
+                            <circle cx="175" cy="75" r="3" class="node-led" />
+                            <text x="185" y="79" class="node-label node-label-lg">VECTOR</text>
+
+                            <rect x="95" y="120" width="110" height="28" rx="8" class="node-box node-box-core" />
+                            <circle cx="111" cy="134" r="4" class="node-led node-led-core" />
+                            <text x="122" y="138" class="node-label node-label-lg node-label-core">RAG.CORE</text>
+                        </svg>
+                        <svg class="swarm-svg swarm-svg--wide" viewBox="0 0 420 96" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <!-- Grid lines -->
                             <line x1="16" y1="48" x2="404" y2="48" class="trace-bg" />
                             <path d="M74 48 C115 48, 120 24, 166 24" class="trace-line" />
@@ -169,12 +207,53 @@
                 <article class="card glass card-ecosystem reveal" style="--i: 2">
                     <div class="card-beam" aria-hidden="true"></div>
 
-                    <div class="swarm- schematic-enterprise" aria-hidden="true">
+                    <div class="schematic schematic-enterprise" aria-hidden="true">
                         <div class="schematic-meta">
                             <span class="schematic-code">SYS.02 // CLOUD-SWARM-MESH</span>
                             <span class="schematic-signal"><span class="signal-bar"></span><span class="signal-bar"></span><span class="signal-bar"></span> 4x MODELS</span>
                         </div>
-                        <svg class="swarm-svg" viewBox="0 0 420 96" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <svg class="swarm-svg swarm-svg--compact" viewBox="0 0 300 150" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M150 30 C150 48, 39 44, 39 62" class="trace-line" />
+                            <path d="M150 30 C150 48, 113 44, 113 62" class="trace-line" />
+                            <path d="M150 30 C150 48, 187 44, 187 62" class="trace-line" />
+                            <path d="M150 30 C150 48, 261 44, 261 62" class="trace-line" />
+                            <path d="M39 88 C39 106, 150 102, 150 120" class="trace-line" />
+                            <path d="M113 88 C113 106, 150 102, 150 120" class="trace-line" />
+                            <path d="M187 88 C187 106, 150 102, 150 120" class="trace-line" />
+                            <path d="M261 88 C261 106, 150 102, 150 120" class="trace-line" />
+
+                            <path d="M150 30 C150 48, 39 44, 39 62" class="trace-pulse trace-pulse--short pulse-1" />
+                            <path d="M150 30 C150 48, 113 44, 113 62" class="trace-pulse trace-pulse--short pulse-2" />
+                            <path d="M150 30 C150 48, 187 44, 187 62" class="trace-pulse trace-pulse--short pulse-3" />
+                            <path d="M150 30 C150 48, 261 44, 261 62" class="trace-pulse trace-pulse--short pulse-1" />
+                            <path d="M113 88 C113 106, 150 102, 150 120" class="trace-pulse trace-pulse--short pulse-3" />
+                            <path d="M187 88 C187 106, 150 102, 150 120" class="trace-pulse trace-pulse--short pulse-2" />
+
+                            <rect x="105" y="2" width="90" height="28" rx="8" class="node-box node-box-core" />
+                            <circle cx="120" cy="16" r="4" class="node-led node-led-core" />
+                            <text x="131" y="20" class="node-label node-label-lg node-label-core">ROUTER</text>
+
+                            <rect x="6" y="62" width="66" height="26" rx="7" class="node-box" />
+                            <circle cx="16" cy="75" r="2.5" class="node-led" />
+                            <text x="23" y="79" class="node-label node-label-md">CLAUDE</text>
+
+                            <rect x="80" y="62" width="66" height="26" rx="7" class="node-box" />
+                            <circle cx="90" cy="75" r="2.5" class="node-led" />
+                            <text x="97" y="79" class="node-label node-label-md">GEMINI</text>
+
+                            <rect x="154" y="62" width="66" height="26" rx="7" class="node-box" />
+                            <circle cx="164" cy="75" r="2.5" class="node-led" />
+                            <text x="171" y="79" class="node-label node-label-md">ASTRA</text>
+
+                            <rect x="228" y="62" width="66" height="26" rx="7" class="node-box" />
+                            <circle cx="238" cy="75" r="2.5" class="node-led" />
+                            <text x="245" y="79" class="node-label node-label-md">GROK</text>
+
+                            <rect x="105" y="120" width="90" height="28" rx="8" class="node-box" />
+                            <circle cx="120" cy="134" r="3.5" class="node-led" />
+                            <text x="131" y="138" class="node-label node-label-lg">INTEL</text>
+                        </svg>
+                        <svg class="swarm-svg swarm-svg--wide" viewBox="0 0 420 96" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <!-- Orchestrator routing traces -->
                             <path d="M92 48 C136 48, 146 16, 194 16" class="trace-line" />
                             <path d="M92 48 C138 48, 150 38, 194 38" class="trace-line" />
@@ -281,7 +360,7 @@
                 <span class="pulse"></span>
                 <span>SWARM.RUNTIME // ONLINE</span>
             </div>
-            <p>&copy; 2026 Guilherme Carriço. Desenvolvido com IA.</p>
+            <p>&copy; 2026 Guilherme Carriço.</p>
             <div class="footer-links">
                 <a href="mailto:contato@oledsmith.com.br" data-email="contato@oledsmith.com.br" title="contato@oledsmith.com.br" aria-label="Enviar e-mail para contato@oledsmith.com.br">
                     <i data-lucide="mail"></i>
