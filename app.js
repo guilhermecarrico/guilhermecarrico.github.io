@@ -58,9 +58,9 @@ document.addEventListener("DOMContentLoaded", () => {
                             <span><span class="lang-dot" aria-hidden="true"></span>${escapeHtml(language)}</span>
                         </div>
                         <div class="repo-stats">
-                            <span title="Stars"><i data-lucide="star"></i> ${repo.stargazers_count}</span>
-                            <span title="Forks"><i data-lucide="git-fork"></i> ${repo.forks_count}</span>
-                            ${updatedLabel ? `<span title="Último push">${escapeHtml(updatedLabel)}</span>` : ""}
+                            <span title="Estrelas"><i data-lucide="star"></i> ${repo.stargazers_count}</span>
+                            <span title="Cópias"><i data-lucide="git-fork"></i> ${repo.forks_count}</span>
+                            ${updatedLabel ? `<span title="Última atualização">${escapeHtml(updatedLabel)}</span>` : ""}
                         </div>
                     </div>
                 `;
