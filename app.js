@@ -28,7 +28,8 @@ document.addEventListener("DOMContentLoaded", () => {
             reposContainer.innerHTML = "";
 
             // Filtra o próprio repositório do site se quiser esconder
-            const filteredRepos = repos.filter(repo => repo.name !== "guilhermecarrico.github.io" && !repo.fork);
+            const hiddenRepos = new Set(["guilhermecarrico.github.io", "oledsmith-site"]);
+            const filteredRepos = repos.filter(repo => !hiddenRepos.has(repo.name) && !repo.fork);
 
             filteredRepos.forEach((repo, index) => {
                 const card = document.createElement("a");
