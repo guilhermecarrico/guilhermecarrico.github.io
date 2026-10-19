@@ -11,25 +11,36 @@ document.addEventListener("DOMContentLoaded", () => {
         initMagneticButtons();
     }
 
-    // Configurações do Github API
+    // Configurações da API do GitHub
     const GITHUB_USERNAME = "guilhermecarrico";
-    const GITHUB_API_URL = `https://api.github.com/users/${GITHUB_USERNAME}/repos?sort=updated&per_page=6`;
+    const GITHUB_API_URL = `https://api.github.com/users/${GITHUB_USERNAME}/repos?sort=updated&per_page=30`;
     const reposContainer = document.getElementById("github-repos");
+    // O site e a Oledsmith já têm lugar próprio. `main` é o repositório de estudos
+    // com a legenda antiga em inglês; volta à lista assim que for renomeado.
+    const HIDDEN_REPOS = new Set(["guilhermecarrico.github.io", "oledsmith-site", "main"]);
 
-    // Função para buscar os repositórios
     async function fetchRepos() {
         try {
-            const response = await fetch(GITHUB_API_URL);
+            const response = await fetch(GITHUB_API_URL, {
+                headers: { Accept: "application/vnd.github+json" },
+            });
             if (!response.ok) throw new Error("Erro ao buscar repositórios.");
 
             const repos = await response.json();
+            if (!Array.isArray(repos)) throw new Error("Resposta inesperada da API.");
 
-            // Limpa o placeholder de carregamento
+            const filteredRepos = repos.filter((repo) => repo && !repo.fork && !HIDDEN_REPOS.has(repo.name));
             reposContainer.innerHTML = "";
 
-            // Filtra o próprio repositório do site se quiser esconder
-            const hiddenRepos = new Set(["guilhermecarrico.github.io", "oledsmith-site"]);
-            const filteredRepos = repos.filter(repo => !hiddenRepos.has(repo.name) && !repo.fork);
+            if (!filteredRepos.length) {
+                reposContainer.innerHTML = `
+                    <p class="repos-empty">
+                        Quando um repositório público novo for publicado, ele aparece nesta lista.
+                        <a href="https://github.com/${GITHUB_USERNAME}" target="_blank" rel="noopener noreferrer">Abrir o GitHub</a>
+                    </p>
+                `;
+                return;
+            }
 
             filteredRepos.forEach((repo, index) => {
                 const card = document.createElement("a");
@@ -39,12 +50,16 @@ document.addEventListener("DOMContentLoaded", () => {
                 card.className = "card glass repo-card reveal";
                 card.style.setProperty("--i", String(index + 1));
 
-                // Trata descrição vazia
-                const description = repo.description || "Nenhuma descrição fornecida pelo autor.";
-
-                // Pega a linguagem principal
-                const language = repo.language || "Markdown";
+                const description = repo.description?.trim() || "Sem descrição no GitHub.";
                 const updatedLabel = formatUpdatedAt(repo.pushed_at || repo.updated_at);
+                const topicTags = (repo.topics || [])
+                    .slice(0, 3)
+                    .map((topic) => `<span>${escapeHtml(topic)}</span>`)
+                    .join("");
+                const languageTag = repo.language
+                    ? `<span><span class="lang-dot" aria-hidden="true"></span>${escapeHtml(repo.language)}</span>`
+                    : "";
+                const siteHost = publicSiteHost(repo.homepage);
 
                 card.innerHTML = `
                     <div class="card-beam" aria-hidden="true"></div>
@@ -55,11 +70,13 @@ document.addEventListener("DOMContentLoaded", () => {
                     <p>${escapeHtml(description)}</p>
                     <div class="repo-footer">
                         <div class="tags">
-                            <span><span class="lang-dot" aria-hidden="true"></span>${escapeHtml(language)}</span>
+                            ${languageTag}
+                            ${topicTags}
                         </div>
                         <div class="repo-stats">
                             <span title="Estrelas"><i data-lucide="star"></i> ${repo.stargazers_count}</span>
                             <span title="Cópias"><i data-lucide="git-fork"></i> ${repo.forks_count}</span>
+                            ${siteHost ? `<span title="Site"><i data-lucide="globe"></i> ${escapeHtml(siteHost)}</span>` : ""}
                             ${updatedLabel ? `<span title="Última atualização">${escapeHtml(updatedLabel)}</span>` : ""}
                         </div>
                     </div>
@@ -68,7 +85,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 reposContainer.appendChild(card);
             });
 
-            // Reinicializa os ícones novos que acabaram de ser injetados
             lucide.createIcons();
             watchReveals(reposContainer);
             if (motionOK && finePointer) initCardSpotlights(reposContainer);
@@ -77,8 +93,8 @@ document.addEventListener("DOMContentLoaded", () => {
             console.error(error);
             reposContainer.innerHTML = `
                 <div class="repos-error">
-                    Não foi possível carregar os repositórios do Github no momento. <br>
-                    <a href="https://github.com/${GITHUB_USERNAME}" target="_blank" rel="noopener noreferrer">Acessar Github diretamente</a>
+                    Não foi possível carregar os repositórios do GitHub no momento. <br>
+                    <a href="https://github.com/${GITHUB_USERNAME}" target="_blank" rel="noopener noreferrer">Acessar o GitHub</a>
                 </div>
             `;
         }
@@ -95,6 +111,18 @@ function escapeHtml(value) {
         .replaceAll(">", "&gt;")
         .replaceAll('"', "&quot;")
         .replaceAll("'", "&#39;");
+}
+
+function publicSiteHost(homepage) {
+    const raw = typeof homepage === "string" ? homepage.trim() : "";
+    if (!raw) return "";
+    try {
+        const url = new URL(raw.startsWith("http") ? raw : `https://${raw}`);
+        if (url.hostname === "github.com" || url.hostname.endsWith("github.io")) return "";
+        return url.hostname.replace(/^www\./, "");
+    } catch {
+        return "";
+    }
 }
 
 function formatUpdatedAt(isoDate) {

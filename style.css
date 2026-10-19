@@ -995,7 +995,7 @@ footer {
     border-color: rgba(52, 211, 153, 0.2);
 }
 
-/* Github API specific styles */
+/* GitHub API specific styles */
 .repo-card {
     text-decoration: none;
     color: inherit;
@@ -1103,6 +1103,20 @@ footer {
     color: var(--accent-bright);
     margin-top: 0.85rem;
     display: inline-block;
+    text-underline-offset: 3px;
+}
+
+.repos-empty {
+    grid-column: 1 / -1;
+    margin: 0.15rem 0 0;
+    color: var(--text-dim);
+    font-size: 0.92rem;
+    line-height: 1.6;
+}
+
+.repos-empty a {
+    color: var(--accent-bright);
+    margin-left: 0.45rem;
     text-underline-offset: 3px;
 }
 
