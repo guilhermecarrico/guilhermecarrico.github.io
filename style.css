@@ -916,6 +916,8 @@ footer {
 }
 
 .featured-grid {
+    /* Cada destaque já vira grade de duas colunas a partir de 860px; lado a lado ficaria espremido. */
+    grid-template-columns: 1fr;
     margin-bottom: clamp(0.85rem, 2vw, 1.15rem);
 }
 

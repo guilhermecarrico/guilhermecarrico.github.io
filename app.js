@@ -15,9 +15,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const GITHUB_USERNAME = "guilhermecarrico";
     const GITHUB_API_URL = `https://api.github.com/users/${GITHUB_USERNAME}/repos?sort=updated&per_page=30`;
     const reposContainer = document.getElementById("github-repos");
-    // O site e a Oledsmith já têm lugar próprio. `main` é o repositório de estudos
-    // com a legenda antiga em inglês; volta à lista assim que for renomeado.
-    const HIDDEN_REPOS = new Set(["guilhermecarrico.github.io", "oledsmith-site", "main"]);
+    // O site, a Oledsmith e o README do perfil já têm lugar próprio; `main` é o
+    // repositório antigo de estudos.
+    const HIDDEN_REPOS = new Set(["guilhermecarrico.github.io", "oledsmith-site", "main", "guilhermecarrico"]);
 
     async function fetchRepos() {
         try {
@@ -32,13 +32,10 @@ document.addEventListener("DOMContentLoaded", () => {
             const filteredRepos = repos.filter((repo) => repo && !repo.fork && !HIDDEN_REPOS.has(repo.name));
             reposContainer.innerHTML = "";
 
+            // Sem repositório de código público, a grade sai em vez de mostrar vitrine vazia.
+            // remove() e não hidden, porque o display do .grid anularia o atributo.
             if (!filteredRepos.length) {
-                reposContainer.innerHTML = `
-                    <p class="repos-empty">
-                        Quando um repositório público novo for publicado, ele aparece nesta lista.
-                        <a href="https://github.com/${GITHUB_USERNAME}" target="_blank" rel="noopener noreferrer">Abrir o GitHub</a>
-                    </p>
-                `;
+                reposContainer.remove();
                 return;
             }
 
@@ -91,17 +88,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
         } catch (error) {
             console.error(error);
-            reposContainer.innerHTML = `
-                <div class="repos-error">
-                    Não foi possível carregar os repositórios do GitHub no momento. <br>
-                    <a href="https://github.com/${GITHUB_USERNAME}" target="_blank" rel="noopener noreferrer">Acessar o GitHub</a>
-                </div>
-            `;
+            reposContainer.remove();
         }
     }
 
     // Chama a função
-    fetchRepos();
+    if (reposContainer) fetchRepos();
 });
 
 function escapeHtml(value) {
