@@ -915,6 +915,58 @@ footer {
     text-wrap: pretty;
 }
 
+.featured-grid {
+    margin-bottom: clamp(0.85rem, 2vw, 1.15rem);
+}
+
+.featured-project .tags {
+    margin-top: 0;
+    margin-bottom: 1.15rem;
+}
+
+.featured-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.65rem;
+    margin-top: auto;
+}
+
+.featured-actions .btn {
+    min-height: 42px;
+    padding: 0.55rem 1.05rem;
+}
+
+@media (min-width: 860px) {
+    .featured-project {
+        display: grid;
+        grid-template-columns: minmax(0, 40rem) auto;
+        column-gap: 2.5rem;
+        align-items: end;
+    }
+
+    .featured-project .card-header,
+    .featured-project > p,
+    .featured-project .tags {
+        grid-column: 1;
+    }
+
+    .featured-project > p {
+        margin-bottom: 1rem;
+    }
+
+    .featured-project .tags {
+        margin-bottom: 0;
+    }
+
+    .featured-actions {
+        grid-column: 2;
+        grid-row: 2 / span 2;
+        align-self: end;
+        justify-content: flex-end;
+        margin-top: 0;
+    }
+}
+
 .tags {
     display: flex;
     flex-wrap: wrap;
@@ -943,7 +995,7 @@ footer {
     border-color: rgba(52, 211, 153, 0.2);
 }
 
-/* Github API specific styles */
+/* GitHub API specific styles */
 .repo-card {
     text-decoration: none;
     color: inherit;
@@ -1051,6 +1103,20 @@ footer {
     color: var(--accent-bright);
     margin-top: 0.85rem;
     display: inline-block;
+    text-underline-offset: 3px;
+}
+
+.repos-empty {
+    grid-column: 1 / -1;
+    margin: 0.15rem 0 0;
+    color: var(--text-dim);
+    font-size: 0.92rem;
+    line-height: 1.6;
+}
+
+.repos-empty a {
+    color: var(--accent-bright);
+    margin-left: 0.45rem;
     text-underline-offset: 3px;
 }
 
@@ -1340,6 +1406,11 @@ footer::before {
 
     .btn {
         width: 100%;
+    }
+
+    .featured-actions .btn {
+        width: auto;
+        flex: 1 1 9.5rem;
     }
 
     .card-header {
